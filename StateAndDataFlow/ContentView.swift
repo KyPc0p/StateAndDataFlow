@@ -18,11 +18,26 @@ struct ContentView: View {
                 .padding(.top, 100)
             Text("\(timer.counter)")
                 .font(.largeTitle)
-                .padding(.top, 200)
-            Spacer()
+                .padding(80)
             ButtonView(timer: timer)
+            
             Spacer()
+            
+//            Button(action: {}){
+//                Text("LogOut")
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.white)
+//            }
+//            .frame(width: 200, height: 60)
+//            .background(.blue)
+//            .cornerRadius(20)
+//            .overlay {
+//                RoundedRectangle(cornerRadius: 20)
+//                    .stroke(.black, lineWidth: 4)
+//            }
         }
+        .padding(.bottom, 20)
     }
 }
 

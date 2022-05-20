@@ -12,6 +12,8 @@ struct RegisterView: View {
     
     @State private var name = ""
     @State private var counterColor: Color = .red
+    @State private var isDisabled: Bool = true
+    
     
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 1) {
@@ -19,17 +21,21 @@ struct RegisterView: View {
                 TextField("Enter your name...", text: $name)
                     .multilineTextAlignment(.center)
                     .onChange(of: name) { newValue in
-                        name.count >= 3
-                        ? (counterColor = .green)
-                        : (counterColor = .red)
+                        if name.count >= 3 {
+                            counterColor = .green
+                            isDisabled = false
+                        } else {
+                            counterColor = .red
+                            isDisabled = true
+                        }
                     }
                 
                 Button(action: registerUser) {
                     HStack {
                         Image(systemName: "checkmark.circle")
                         Text("OK")
-                    }.foregroundColor(.gray)
-                }
+                    }
+                }.disabled(isDisabled)
             }
             Text(String(name.count))
                 .foregroundColor(counterColor)

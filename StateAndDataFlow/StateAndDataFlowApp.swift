@@ -9,10 +9,7 @@ import SwiftUI
 
 @main
 struct StateAndDataFlowApp: App {
-    @StateObject private var userManager = UserManager()
-    
-//    @AppStorage("isRegistered") var isRegistered = false
-//    @AppStorage("name") var name = ""
+    @StateObject private var userManager = UserManager.shared
     
     var body: some Scene {
         WindowGroup {

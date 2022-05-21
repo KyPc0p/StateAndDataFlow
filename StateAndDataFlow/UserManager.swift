@@ -8,19 +8,26 @@
 import Foundation
 
 final class UserManager: ObservableObject {
-    @Published var isRegistered = false
-    var name = ""
-}
-
-final class TextFieldManager: ObservableObject {
     
-    @Published var text = "" {
+    static var shared = UserManager()
+    
+    @Published var isRegistered: Bool {
         didSet{
-            if text.count > 5 && oldValue.count <= 5 {
-                text = oldValue
-            }
+            UserDefaults.standard.set(isRegistered, forKey: "isRegistered")
         }
     }
+    
+    var name: String {
+        didSet{
+            UserDefaults.standard.set(name, forKey: "name")
+        }
+    }
+    
+    init() {
+        isRegistered = UserDefaults.standard.bool(forKey: "isRegistered")
+        name = UserDefaults.standard.string(forKey: "name") ?? ""
+    }
 }
+
 
 

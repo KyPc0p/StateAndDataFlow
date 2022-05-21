@@ -9,7 +9,6 @@ import SwiftUI
 
 struct RegisterView: View {
     @EnvironmentObject private var userManger: UserManager
-    @ObservedObject var tFManager = TextFieldManager()
     
     @State var name = ""
     @State var isDisabled = true
@@ -20,14 +19,14 @@ struct RegisterView: View {
     var body: some View {
         ZStack {
             Color.white
-                .ignoresSafeArea()
                 .onTapGesture {
-                    isActive = true
+                    isActive = false
                 }
             
         HStack(alignment: .firstTextBaseline) {
             VStack {
                 TextField("Enter your name...", text: $name)
+                    .focused($isActive)
                     .multilineTextAlignment(.center)
                     .onChange(of: name) { newValue in
                         if name.count >= 3 {

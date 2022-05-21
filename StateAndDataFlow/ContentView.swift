@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject private var user: UserManager
+    
     @StateObject private var timer = TimeCounter()
     
     var body: some View {
@@ -20,11 +21,11 @@ struct ContentView: View {
                 .font(.largeTitle)
                 .padding(80)
             
-            ButtonView(timer: timer)
+            CustomButtonView(action: timer.startTimer, fetchText: timer.buttonTitle)
             
             Spacer()
             
-            LogOutButtonView(action: logOutUser)
+            CustomButtonView(action: logOutUser, color: .blue)
         }
         .padding(.bottom, 20)
     }
@@ -42,42 +43,4 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-struct ButtonView: View {
-    @ObservedObject var timer: TimeCounter
-    
-    var body: some View {
-        Button(action: timer.startTimer) {
-            Text(timer.buttonTitle)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-        }
-        .frame(width: 200, height: 60)
-        .background(.red)
-        .cornerRadius(20)
-        .overlay {
-            RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4)
-        }
-    }
-}
 
-struct LogOutButtonView: View {
-    
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action){
-            Text("LogOut")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-        }
-        .frame(width: 200, height: 60)
-        .background(.blue)
-        .cornerRadius(20)
-        .overlay {
-            RoundedRectangle(cornerRadius: 20)
-                .stroke(.black, lineWidth: 4)
-        }
-    }
-}

@@ -14,15 +14,13 @@ final class UserManager: ObservableObject {
 }
 
 final class TextFieldManager: ObservableObject {
-    let objectWillChange = PassthroughSubject<TextFieldManager, Never>()
     
-    var userInput = "" {
-        willSet {
-            self.userInput = String(newValue.prefix(characterLimit))
-            objectWillChange.send(self)
-            print(userInput.count)
+    @Published var text = "" {
+        didSet{
+            if text.count > 5 && oldValue.count <= 5 {
+                text = oldValue
+            }
         }
     }
-    
-    let characterLimit = 5
 }
+

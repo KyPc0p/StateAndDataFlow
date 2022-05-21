@@ -19,25 +19,19 @@ struct ContentView: View {
             Text("\(timer.counter)")
                 .font(.largeTitle)
                 .padding(80)
+            
             ButtonView(timer: timer)
             
             Spacer()
             
-//            Button(action: {}){
-//                Text("LogOut")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .foregroundColor(.white)
-//            }
-//            .frame(width: 200, height: 60)
-//            .background(.blue)
-//            .cornerRadius(20)
-//            .overlay {
-//                RoundedRectangle(cornerRadius: 20)
-//                    .stroke(.black, lineWidth: 4)
-//            }
+            LogOutButtonView(action: logOutUser)
         }
         .padding(.bottom, 20)
+    }
+    
+    private func logOutUser() {
+        user.name = ""
+        user.isRegistered.toggle()
     }
 }
 
@@ -63,6 +57,27 @@ struct ButtonView: View {
         .cornerRadius(20)
         .overlay {
             RoundedRectangle(cornerRadius: 20).stroke(.black, lineWidth: 4)
+        }
+    }
+}
+
+struct LogOutButtonView: View {
+    
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action){
+            Text("LogOut")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.white)
+        }
+        .frame(width: 200, height: 60)
+        .background(.blue)
+        .cornerRadius(20)
+        .overlay {
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(.black, lineWidth: 4)
         }
     }
 }

@@ -6,24 +6,31 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RegisterView: View {
     @EnvironmentObject private var userManger: UserManager
-    
-    @EnvironmentObject private var textFieldManager: TextFieldManager
+    @ObservedObject var tFManager = TextFieldManager()
     
     @State private var name = ""
     @State private var counterColor: Color = .red
     @State private var isDisabled: Bool = true
     
+    @FocusState private var isActive: Bool
     
     var body: some View {
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
+                .onTapGesture {
+                    isActive = false
+                }
         HStack(alignment: .firstTextBaseline, spacing: 1) {
             VStack {
-                TextField("Enter your name...", text: $textFieldManager.userInput)
+                TextField("Enter your name...", text: $tFManager.text)
                     .multilineTextAlignment(.center)
-                    .onChange(of: textFieldManager.userInput) { newValue in
-                        if textFieldManager.userInput.count >= 3 {
+                    .onChange(of: tFManager.text) { newValue in
+                        if tFManager.text.count >= 3 {
                             counterColor = .green
                             isDisabled = false
                         } else {
@@ -39,23 +46,17 @@ struct RegisterView: View {
                     }
                 }.disabled(isDisabled)
             }
-            Text(String(name.count))
+            Text(String(tFManager.text.count))
                 .foregroundColor(counterColor)
                 .padding(.leading, -40)
         }
     }
-    
+}
     
     private func registerUser() {
         if !name.isEmpty {
             userManger.name = name
             userManger.isRegistered.toggle()
-        }
-    }
-    
-    func textLimit(_ upper: Int) {
-        if name.count > upper {
-            name = String(name.prefix(upper))
         }
     }
 }
@@ -66,3 +67,4 @@ struct RegisterView_Previews: PreviewProvider {
             .environmentObject(UserManager())
     }
 }
+

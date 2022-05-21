@@ -59,12 +59,12 @@
 		A8EA88AE283566FE005934B6 /* StateAndDataFlow */ = {
 			isa = PBXGroup;
 			children = (
-				A8EA88AF283566FE005934B6 /* StateAndDataFlowApp.swift */,
-				A8EA88B1283566FE005934B6 /* ContentView.swift */,
-				A8EA88BF283571B3005934B6 /* RegisterView.swift */,
-				A8EA88C3283575E2005934B6 /* StarterView.swift */,
-				A8EA88BD28356B37005934B6 /* TimeCounter.swift */,
 				A8EA88C1283572FD005934B6 /* UserManager.swift */,
+				A8EA88BF283571B3005934B6 /* RegisterView.swift */,
+				A8EA88B1283566FE005934B6 /* ContentView.swift */,
+				A8EA88C3283575E2005934B6 /* StarterView.swift */,
+				A8EA88AF283566FE005934B6 /* StateAndDataFlowApp.swift */,
+				A8EA88BD28356B37005934B6 /* TimeCounter.swift */,
 				A8EA88B3283566FF005934B6 /* Assets.xcassets */,
 				A8EA88B5283566FF005934B6 /* Preview Content */,
 			);

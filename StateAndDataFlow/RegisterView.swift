@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
-import Combine
 
 struct RegisterView: View {
     @EnvironmentObject private var userManger: UserManager
     @ObservedObject var tFManager = TextFieldManager()
     
-    @State private var name = ""
+    @State var name = ""
+    @State var isDisabled = true
     @State private var counterColor: Color = .red
-    @State private var isDisabled: Bool = true
     
     @FocusState private var isActive: Bool
     
@@ -23,14 +22,15 @@ struct RegisterView: View {
             Color.white
                 .ignoresSafeArea()
                 .onTapGesture {
-                    isActive = false
+                    isActive = true
                 }
-        HStack(alignment: .firstTextBaseline, spacing: 1) {
+            
+        HStack(alignment: .firstTextBaseline) {
             VStack {
-                TextField("Enter your name...", text: $tFManager.text)
+                TextField("Enter your name...", text: $name)
                     .multilineTextAlignment(.center)
-                    .onChange(of: tFManager.text) { newValue in
-                        if tFManager.text.count >= 3 {
+                    .onChange(of: name) { newValue in
+                        if name.count >= 3 {
                             counterColor = .green
                             isDisabled = false
                         } else {
@@ -46,7 +46,7 @@ struct RegisterView: View {
                     }
                 }.disabled(isDisabled)
             }
-            Text(String(tFManager.text.count))
+            Text(String(name.count))
                 .foregroundColor(counterColor)
                 .padding(.leading, -40)
         }

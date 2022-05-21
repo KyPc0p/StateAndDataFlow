@@ -10,6 +10,8 @@ import SwiftUI
 struct RegisterView: View {
     @EnvironmentObject private var userManger: UserManager
     
+    @EnvironmentObject private var textFieldManager: TextFieldManager
+    
     @State private var name = ""
     @State private var counterColor: Color = .red
     @State private var isDisabled: Bool = true
@@ -18,10 +20,10 @@ struct RegisterView: View {
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 1) {
             VStack {
-                TextField("Enter your name...", text: $name)
+                TextField("Enter your name...", text: $textFieldManager.userInput)
                     .multilineTextAlignment(.center)
-                    .onChange(of: name) { newValue in
-                        if name.count >= 3 {
+                    .onChange(of: textFieldManager.userInput) { newValue in
+                        if textFieldManager.userInput.count >= 3 {
                             counterColor = .green
                             isDisabled = false
                         } else {
@@ -43,10 +45,17 @@ struct RegisterView: View {
         }
     }
     
+    
     private func registerUser() {
         if !name.isEmpty {
             userManger.name = name
             userManger.isRegistered.toggle()
+        }
+    }
+    
+    func textLimit(_ upper: Int) {
+        if name.count > upper {
+            name = String(name.prefix(upper))
         }
     }
 }

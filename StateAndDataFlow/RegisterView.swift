@@ -22,35 +22,36 @@ struct RegisterView: View {
                 .onTapGesture {
                     isActive = false
                 }
-            
-        HStack(alignment: .firstTextBaseline) {
             VStack {
-                TextField("Enter your name...", text: $name)
-                    .focused($isActive)
-                    .multilineTextAlignment(.center)
-                    .onChange(of: name) { newValue in
-                        if name.count >= 3 {
-                            counterColor = .green
-                            isDisabled = false
-                        } else {
-                            counterColor = .red
-                            isDisabled = true
+                HStack(alignment: .firstTextBaseline) {
+                    TextField("Enter your name...", text: $name)
+                        .padding([.trailing, .leading], 80)
+                        .focused($isActive)
+                        .multilineTextAlignment(.center)
+                        .onChange(of: name) { newValue in
+                            if name.count >= 3 {
+                                counterColor = .green
+                                isDisabled = false
+                            } else {
+                                counterColor = .red
+                                isDisabled = true
+                            }
                         }
-                    }
-                
+                    
+                    Text(String(name.count))
+                        .foregroundColor(counterColor)
+                        .padding(.leading, -40)
+                }
                 Button(action: registerUser) {
                     HStack {
                         Image(systemName: "checkmark.circle")
                         Text("OK")
                     }
-                }.disabled(isDisabled)
+                }
+                .disabled(isDisabled)
             }
-            Text(String(name.count))
-                .foregroundColor(counterColor)
-                .padding(.leading, -40)
         }
     }
-}
     
     private func registerUser() {
         if !name.isEmpty {
@@ -59,6 +60,12 @@ struct RegisterView: View {
         }
     }
 }
+
+
+
+
+
+
 
 struct RegisterView_Previews: PreviewProvider {
     static var previews: some View {
